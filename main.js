@@ -198,4 +198,52 @@ class Solution{
 }
 
 
+// Given an array of N integers, and an integer K, find the number of pairs of elements in the array whose sum is equal to K.
+class Solution {
+    getPairsCount(arr,n,k){
+        let result = 0;
+        arr.sort(function(a, b){return a-b})
+        for (let i=0;i<n;i++) {
+            let findElem = k - arr[i];
+            if (findElem < 0) {
+                break;
+            }
+            for (let j=i+1;j<n;j++) {
+                if (arr[j] == findElem) {
+                    result++;
+                } else if (arr[j] > findElem) {
+                    break;
+                }
+            }
+        }
+       return result;
+    }
+}
+
+class Solution {
+    getPairsCount(arr,n,k){
+        let result = 0;
+        let tally = {};
+        for (let i=0;i<n;i++) {
+            if (tally[arr[i].toString()]) {
+                tally[arr[i].toString()] += 1;
+            } else {
+                tally[arr[i].toString()] = 1;
+            }
+        }
+        for (let i = 0;i<n;i++) {
+            let elemNeeded = k - arr[i];
+            if (arr[i] == elemNeeded) {
+                result += tally[elemNeeded.toString()] - 1;
+            } else if (tally[elemNeeded.toString()]) {
+                result += tally[elemNeeded.toString()];
+            }
+        }
+       return result/2;
+    }
+}
+
+
+
+
 
