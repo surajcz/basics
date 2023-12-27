@@ -244,6 +244,39 @@ class Solution {
 }
 
 
+// Given an array nums[] of size n, construct a Product Array P (of same size n) such that P[i] is equal to the product of all the elements of nums except nums[i]. Note: Try to solve this problem without using the division operation.
+class Solution {
+    productExceptSelf(nums,n){
+      //code here
+      let resultArr = [];
+      let productAll = 1;
+      let countZero = 0;
+      for(let i=0;i<n;i++){
+          if(nums[i]==0){
+              countZero++;
+              continue;
+          }
+          productAll = productAll * nums[i];
+      }
+      for(let i=0;i<n;i++){
+          if(nums[i]==0 && countZero==1){
+              resultArr[i]=productAll;
+          } 
+          else if(countZero>1 || (nums[i]!=0 && countZero==1)) {
+              resultArr[i]=0;
+          }
+          else {
+                 resultArr[i]=productAll/nums[i];
+          }
+
+      }
+      
+      return resultArr;
+    }
+}
+
+
+
 
 
 
