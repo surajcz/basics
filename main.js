@@ -276,7 +276,96 @@ class Solution {
 }
 
 
+// Given an unsorted array Arr of N positive and negative numbers. Your task is to create an array of alternate positive and negative numbers without changing the relative order of positive and negative numbers. Note: Array should start with a positive number and 0 (zero) should be considered a positive element.
+class Solution{
+    rearrange(arr,n){
+        //code here
+        let resultArr = [];
+        let posArr = [];
+        let negArr = [];
+        for(let i=0;i<n;i++){
+            if(arr[i]<0){
+                negArr.push(arr[i]);
+                
+            } else {
+                posArr.push(arr[i]);
+            }
+        }
+        
+        if(posArr.length >= negArr.length){
+            let j = 1;
+            for(let i=0;i<negArr.length;i++){
+                posArr.splice(j,0,negArr[i])
+                j+=2;
+            }
+            resultArr = posArr;
+        } else {
+            let j = 0;
+            for(let i=0;i<posArr.length;i++){
+                negArr.splice(j,0,posArr[i])
+                j+=2;
+            }
+            resultArr=negArr;
+        }
+        
+        return resultArr;
+    }
+}
 
 
+// Given an array of size n and a range [a, b]. The task is to partition the array around the range such that array is divided into three parts. 1) All elements smaller than a come first. 2) All elements in range a to b come next. 3) All elements greater than b appear in the end. The individual elements of three sets can appear in any order. You are required to return the modified array.
 
+class Solution {
+    threeWayPartition(array, a, b) {
+        //your code here
+        let front = [];
+        let mid = [];
+        let last = [];
+
+        for (let elem of array) {
+            if (elem < a) {
+                front.push(elem);
+            } else if (a <= elem && elem <= b) {
+                mid.push(elem);
+            } else if (elem > b) {
+                last.push(elem);
+            }
+        }
+
+        const resultArray = [...front, ...mid, ...last];
+        for (let i = 0; i < array.length; i++) {
+            array[i] = resultArray[i];
+        }
+
+        return array;
+    }
+}
+
+// slower solution
+class Solution {
+    //Function to partition the array around the range such 
+    //that array is divided into three parts.
+    threeWayPartition(array, a, b)
+    {
+        //your code here
+        let resultArr=[];
+        let smallerIndex = 0;
+        for(let i=0;i<array.length;i++){
+            if(array[i]<a){
+                resultArr.splice(smallerIndex,0,array[i]);
+                smallerIndex++;
+            } else if(array[i]>=a && array[i]<=b){
+                resultArr.splice(smallerIndex,0,array[i]);
+            } else {
+                resultArr.splice(resultArr.length,0,array[i]);
+            }
+        }
+        
+        for (let i = 0; i < array.length; i++) {
+            array[i] = resultArr[i];
+        }
+        
+        return array;
+    }
+}
 
