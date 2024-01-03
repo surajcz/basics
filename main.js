@@ -369,3 +369,104 @@ class Solution {
     }
 }
 
+
+//Smallest subarray with sum greater than x
+//Given an array of integers (A[])  and a number x, find the smallest subarray with sum greater than the given value. If such a subarray do not exist return 0 in that case.
+class Solution {
+
+    smallestSubWithSum(a,n,x){
+        // Initialize current sum and minimum length
+        let curr_sum = 0, min_len = n+1;
+     
+        // Initialize starting and ending indexes
+        let start = 0, end = 0;
+        while (end < n)
+        {
+            // Keep adding array elements while current sum
+            // is smaller than x
+            while (curr_sum <= x && end < n)
+                curr_sum += a[end++];
+     
+            // If current sum becomes greater than x.
+            while (curr_sum > x && start < n)
+            {
+                // Update minimum length if needed
+                if (end - start < min_len)
+                    min_len = end - start;
+     
+                curr_sum -= a[start++];
+            }
+        }
+        
+        if(min_len>n)
+        return 0;
+        return min_len;
+    }
+}
+
+
+//Count More than n/k Occurences
+//Given an array arr of size N and an element k. The task is to find the count of elements in the array that appear more than n/k times.
+class Solution
+{
+    //Function to find all elements in array that appear more than n/k times.
+    countOccurence(arr, n, k)
+    {
+        //your code here
+        let greaterThan = n/k;
+        let resultArr = [];
+        let tally = {}
+        
+        for(let i=0;i<n;i++){
+            
+            if(tally[arr[i]]){
+                tally[arr[i]] += 1;
+            } else{
+                tally[arr[i]] = 1;
+            }
+            // if(tally[arr[i]] > greaterThan && resultArr.indexOf(arr[i])<0){
+            //         resultArr.push(arr[i]);
+            // }
+        }
+        Object.keys(tally).forEach((value)=>{
+            if(tally[value] > greaterThan){
+                resultArr.push(value);
+            }
+        })
+        return resultArr.length;
+    
+    }
+}
+
+
+//Maximize sum after K negations
+//Given an array of integers of size N and a number K., You must modify array arr[] exactly K number of times. Here modify array means in each operation you can replace any array element either arr[i] by -arr[i] or -arr[i] by arr[i]. You need to perform this operation in such a way that after K operations, the sum of the array must be maximum.
+class Solution {
+    maximizeSum(arr,n,k){
+       //code here
+       arr.sort(function(a, b){return a-b});
+       for(let i=0;i<n;i++){
+           if(k==0){
+               break;
+           }
+           if(arr[i]<0){
+               arr[i] = -arr[i];
+               k--;
+           } else{
+               break;
+           }
+       }
+       
+       arr.sort(function(a, b){return a-b});
+       
+       while(k>0){
+           arr[0] = -arr[0];
+           k--;
+       }
+       
+       return arr.reduce((accumulator, currentValue)=> {
+            return accumulator + currentValue;
+        }, 0)
+    }
+}
+
