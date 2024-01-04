@@ -470,3 +470,119 @@ class Solution {
     }
 }
 
+
+//Remove all duplicates from a given string
+//Given a string Str which may contains lowercase and uppercase chracters. The task is to remove all duplicate characters from the string and find the resultant string. The order of remaining characters in the output should be same as in the original string.
+class Solution {
+    removeDuplicates(str){
+       //code here
+       let stringArr = str.split('');
+      let tallyArr = [];
+      
+    //slower way
+    //   stringArr.forEach((elem)=>{
+    //       if(tallyArr.indexOf(elem)<0){
+    //           tallyArr.push(elem);
+    //       }
+    //   })
+    
+        let tallyObj = {};
+        stringArr.forEach((elem)=>{
+            if (!tallyObj[elem]){
+                tallyObj[elem] = 1;
+                tallyArr.push(elem);
+            }
+        })
+       
+      return tallyArr.join('');
+    }
+}
+
+
+//Sort by Set Bit Count
+//Given an array of integers, sort the array (in descending order) according to count of set bits in binary representation of array elements. Note: For integers having same number of set bits in their binary representation, sort according to their position in the original array i.e., a stable sort.
+
+//works but invalid solution, need to use something called as comparator or Lamda Function approach 
+class Solution{
+    sortBySetBitCount(arr, n){
+        //code here
+        let resultArr = [];
+        let tallyObj = {};
+        
+        arr.forEach((elem)=>{
+            let ones = elem.toString(2).split('').filter(bit => bit === '1').length;
+            if(tallyObj[ones]){
+                tallyObj[ones].push(elem);
+            } else {
+                tallyObj[ones] = [elem];
+            }
+        })
+        let tallyArr = Object.keys(tallyObj).sort((a, b)=>{return b-a});
+        for(let i=0;i<tallyArr.length;i++){
+            
+            resultArr = resultArr.concat(tallyObj[tallyArr[i]]);
+        }
+        
+        return resultArr;
+    }
+}
+
+
+//Pairs with certain difference
+//Given an array of integers, arr[] and a number, K.You can pair two numbers of the array if the difference between them is strictly less than K. The task is to find the maximum possible sum of such disjoint pairs (i.e., each element of the array can be used at most once). The Sum of P pairs is the sum of all 2P elements of pairs.
+class Solution
+{
+    //Function to return maximum sum?.
+    maxSumPairWithDifferenceLessThanK(arr, N, K)
+    {
+        //your code goes here
+        let resultArr = [];
+        
+        arr.sort((a, b)=>{return b-a})
+        arr.forEach((elem, index)=>{
+            for(let i=index+1;i<N;i++){
+                if(elem-arr[i] < K ){
+                    resultArr.push(elem, arr[i]);
+                    arr.splice(i,1);
+                    break;
+                }
+            }
+        })
+        
+        return resultArr.reduce((total,elem)=>{
+            return total+elem;
+        },0)
+    }
+}
+
+
+//Minimum Sum of Absolute Differences of Pairs
+//You are given two arrays A and B of equal length N. Your task is to pair each element of array A to an element in array B, such that the sum of the absolute differences of all the pairs is minimum.
+class Solution
+{
+    //Function to find the minimum sum of two numbers
+    findMinSum(A, B, N)
+    {
+        //your code here
+        let resultArr = [];
+        
+        A.sort((a,b)=>{return a-b});
+        B.sort((a,b)=>{return a-b});
+        
+        for(let i=0;i<N;i++){
+            let calc = A[i]-B[i];
+            if(calc<0){
+                calc = -calc;
+            }
+            resultArr.push(calc);
+        }
+        
+        return resultArr.reduce((total,elem)=>{
+            return total+elem;
+        },0)
+    }
+}
+
+
+
+
