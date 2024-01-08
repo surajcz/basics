@@ -585,4 +585,20 @@ class Solution
 
 
 
+//Merge k Sorted Arrays
+//Given K sorted arrays arranged in the form of a matrix of size K*K. The task is to merge them into one sorted array.
+class Solution {
+    mergeKArrays(arr,K){
+        //code here
+        let resultArr=[];
+        for(let i=0;i<K;i++){
+            resultArr = resultArr.concat(arr[i]);
+        }
+        resultArr.sort((a,b)=>{return a-b})
+        
+        return resultArr;
+    }
+}
+
+
 
