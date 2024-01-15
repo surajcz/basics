@@ -600,5 +600,75 @@ class Solution {
     }
 }
 
+//Find Transition Point
+//Given a sorted array containing only 0s and 1s, find the transition point, i.e., the first index where 1 was observed, and before that, only 0 was observed.
+class Solution {
+    transitionPoint(arr, n) {
+      //code here
+      return arr.indexOf(1)
+    }
+  }
 
+//Remove duplicate elements from sorted Array
+//Given a sorted array A[] of size N, delete all the duplicated elements from A[]. Modify the array such that if there are X distinct elements in it then the first X positions of the array should be filled with them in increasing order and return the number of distinct elements in the array. Note: 1. Don't use set or HashMap to solve the problem. 2. You must return the number of distinct elements(X) in the array, the driver code will print all the elements of the modified array from index 0 to X-1 as output of your code.
+class Solution{
+    remove_duplicate(arr,n){
+        //code here
+        for(let i=0;i<arr.length;i++){
+            if (i==0){
+                continue;
+            }
+            if(arr[i-1]==arr[i]){
+                arr.splice(i,1);
+                i--;
+            }
+        }
+
+        return arr.length;
+    }
+}
+
+
+//Remove duplicates in small prime array
+//Given an array consisting of only prime numbers, remove all duplicate numbers from it. 
+class Solution {
+    
+    removeDuplicate(a, n)
+    {
+        //your code here
+let checkObj={};
+let resultArr=[]
+for(let i=0;i<n;i++){
+  if(resultArr.indexOf(a[i])<0){
+      resultArr.push(a[i])
+  } 
+
+}
+
+    return resultArr;
+    }
+}
+
+
+//Equilibrium index of an array
+//Equilibrium index of an array is an index such that the sum of elements at lower indexes is equal to the sum of elements at higher indexes.Given an array, your task is to find the index of first Equilibrium point in the array.
+class Solution{
+    findEquilibrium(arr,n){
+        //code here
+        let result=-1;
+        let totalSum = 0;
+        let sumFromLeft=0;
+        arr.forEach((elem)=>{totalSum+=elem});
+        for(let i=0;i<n;i++){
+            
+            if(sumFromLeft == (totalSum-sumFromLeft-arr[i])){
+                result = i;
+                break;
+            }
+            sumFromLeft+=arr[i];
+        }
+        
+        return result;
+    }
+}
 
