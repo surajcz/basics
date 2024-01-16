@@ -672,3 +672,57 @@ class Solution{
     }
 }
 
+
+//Find Maximum value
+//Given an array A[ ] your task is to complete the function max_val which finds the maximum value of abs(i – j) * min(arr[i], arr[j]) where i and j vary from 0 to n-1. 
+//slower solution
+class Solution{
+    max_val(arr,n){
+        //code here
+let max = -Infinity;
+
+for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+        let value = (j-i) * Math.min(arr[i], arr[j]);
+        max = Math.max(max, value);
+    }
+}
+
+return max;
+
+    }
+}
+
+//two-pointer approach
+class Solution{
+    max_val(arr,n){
+        //code here
+        let maxProduct = -Infinity; 
+        let currProduct;
+     
+      
+        let left = 0, right = n-1;
+        while (left < right)
+        {
+            if (arr[left] < arr[right])
+            {
+                currProduct = arr[left]*(right-left);
+                left++;
+            }
+            else 
+            {
+                currProduct = arr[right]*(right-left);
+                right--;
+            }
+     
+        
+            maxProduct = Math.max(maxProduct, currProduct);
+        }
+     
+       return maxProduct;
+
+    }
+}
+
+
+
