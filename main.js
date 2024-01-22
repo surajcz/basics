@@ -724,5 +724,140 @@ class Solution{
     }
 }
 
+//You and your books
+//You have N stacks of books. Each stack of books has some non zero height Hi equal to the number of books on that stack ( considering all the books are identical and each book has a height of 1 unit ). In one move, you can select any number of consecutive stacks of books such that the height of each selected stack of books Hi <= K . Once such a sequence of stacks is chosen , You can collect any number of books from the chosen sequence of stacks . What is the maximum number of books that you can collect this way ?
+class Solution{
+    max_Books(arr,n,k){
+        //code here
+        let result = 0;
+        let left = null;
+        let right = null;
+        let currMax = 0;
+        
+        for(let i=0;i<n;i++){
+            left=i-1;
+            right=i+1;
+            currMax=arr[i];
+            if(arr[i]<=k){
+                while(arr[left]<=k && left>=0){
+                    currMax+=arr[left];
+                    left--;
+                }
+                while(arr[right]<=k && right<=n){
+                    currMax+=arr[right];
+                    right++;
+                }
+                
+                result=Math.max(result,currMax);
+            }
+        }
+        
+        
+        return result;
+    }
+}
+
+//Max distance between same elements
+//Given an array with repeated elements, the task is to find the maximum distance between two occurrences of an element.
+class Solution {
+    
+    maxDistance(arr,n){
+        //code here
+        let maxDistance = 0;
+        let currDistance=0;
+        let reverseArr=[...arr];
+        reverseArr.reverse();
+        let indexFromLast = null;
+        arr.forEach((elem,index)=>{
+            indexFromLast = reverseArr.indexOf(elem);
+            currDistance=(n-1-indexFromLast)-index;
+            maxDistance=Math.max(currDistance,maxDistance);
+        })
+        
+        return maxDistance;
+    }
+}
+
+//Minimum distance between two numbers
+//You are given an array a, of n elements. Find the minimum index based distance between two distinct elements of the array, x and y. Return -1, if either x or y does not exist in the array.
+class Solution {
+  
+    minDist(a, n, x, y)
+    {
+        // code here
+        let minDistance = -1;
+        let currDistance=0;
+        let xArr =[];
+        let yArr =[];
+        if(a.indexOf(x)<0 || a.indexOf(y)<0){
+            return minDistance;
+        }
+        a.forEach((elem,index)=>{
+            if(elem==x){
+                xArr.push(index);
+            }
+            if(elem==y){
+                yArr.push(index);
+            }
+        })
+        minDistance=Infinity;
+        for(let i=0;i<xArr.length;i++){
+            for(let j=0;j<yArr.length;j++){
+                currDistance=Math.abs(xArr[i]-yArr[j]);
+                minDistance=Math.min(minDistance,currDistance);
+            }
+        }
+        
+        
+        return minDistance;
+    }
+}
+
+//Find duplicates in an array
+//Given an array a of size N which contains elements from 0 to N-1, you need to find all the elements occurring more than once in the given array. Return the answer in ascending order. If no such element is found, return list containing [-1]. Note: The extra space is only for the array to be returned. Try and perform all operations within the provided array. 
+//slower solution
+function duplicates(a, n)
+{
+    //your code here
+    let repeateArr=[];
+    let elemObj = {};
+    let elem = null;
+    for(let i=0;i<n;i++){
+        elem=a[i];
+        if(repeateArr.indexOf(elem)!=-1){
+            continue;
+        }
+        if(elemObj[elem]){
+            repeateArr.push(elem);
+        } else{
+            elemObj[elem]=1;
+        }
+    }
+    
+    return repeateArr.length==0?[-1]:repeateArr.sort((a,b)=>{return a-b});
+}
+
+//faster solution using set()
+class Solution {
+    
+    duplicates(a, n)
+    {
+        //your code here
+    const repeatedSet = new Set();
+    const uniqueSet = new Set();
+    
+    for (let i = 0; i < n; i++) {
+        const elem = a[i];
+        if (uniqueSet.has(elem)) {
+            repeatedSet.add(elem);
+        } else {
+            uniqueSet.add(elem);
+        }
+    }
+
+    const result = Array.from(repeatedSet).sort((a, b) => a - b);
+    return result.length === 0 ? [-1] : result;
+    }
+}
 
 
