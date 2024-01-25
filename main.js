@@ -861,3 +861,20 @@ class Solution {
 }
 
 
+//Index Of an Extra Element
+//Given two sorted arrays of distinct elements. There is only 1 difference between the arrays. First array has one element extra added in between. Find the index of the extra element.
+class Solution {
+    findExtra(a,b,n){
+        //code here
+        let sumA = a.reduce((total, elem)=>{
+            return total+elem;
+        }, 0)
+        let sumB = b.reduce((total, elem)=>{
+            return total+elem;
+        }, 0)
+        let extra = sumA-sumB;
+        
+        return a.indexOf(extra);
+    }
+}
+
