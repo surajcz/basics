@@ -878,3 +878,96 @@ class Solution {
     }
 }
 
+//Wave Array
+//Given a sorted array arr[] of distinct integers. Sort the array into a wave-like array(In Place). In other words, arrange the elements into a sequence such that arr[1] >= arr[2] <= arr[3] >= arr[4] <= arr[5]..... If there are multiple solutions, find the lexicographically smallest one. Note:The given array is sorted in ascending order, and you don't need to return anything to make changes in the original array itself.
+class Solution {
+    // arr: input array
+    // n: size of array
+    //Function to sort the array into a wave-like array.
+    convertToWave(n, arr)
+    {
+        //your code here
+        for(let i=1;i<n;i+=2){
+            let change=arr[i];
+            arr[i]=arr[i-1];
+            arr[i-1]=change;
+        }
+        return arr;
+    }
+}
+
+//Frequencies of Limited Range Array Elements
+//Given an array arr[] of N positive integers which can contain integers from 1 to P where elements can be repeated or can be absent from the array. Your task is to count the frequency of all numbers from 1 to N. Make in-place changes in arr[], such that arr[i] = frequency(i). Assume 1-based indexing. Note: The elements greater than N in the array can be ignored for counting and do modify the array in-place. 
+class Solution {
+    frequencyCount(arr,N,P){
+       //code here
+    //   let dummyArr=[...arr];
+    //   for(let i=0;i<N;i++){
+    //       arr[i]=dummyArr.filter((elem)=>{return elem==i+1}).length;
+    //   }
+    
+        let tallyObj={};
+        for(let i=0;i<N;i++){
+            if(tallyObj[arr[i]]){
+                tallyObj[arr[i]]++;
+            } else {
+                tallyObj[arr[i]]=1;
+            }
+        }
+        for(let i=0;i<N;i++){
+            arr[i]=tallyObj[i+1]?tallyObj[i+1]:0;
+        }
+       return arr;
+    }
+}
+
+//Leaders in an array
+//Given an array A of positive integers. Your task is to find the leaders in the array. An element of array is a leader if it is greater than or equal to all the elements to its right side. The rightmost element is always a leader. 
+// class Solution {
+//     //Function to find the leaders in the array.
+//     leaders(arr, n){
+//         // code here
+//         let resultArr=[];
+//         let sum = arr.reduce((total,elem)=>{
+//             return total+=elem;
+//         },0)
+//         for(let i=0;i<n;i++){
+//             sum-=arr[i];
+//             if(arr[i]>=sum){
+//                 resultArr.push(arr[i])
+//             }
+//         }
+//         return resultArr;
+//     }
+// }
+
+
+//First Repeating Element
+//Given an array arr[] of size n, find the first repeating element. The element should occur more than once and the index of its first occurrence should be the smallest. Note:- The position you return should be according to 1-based indexing. 
+class Solution {
+    // Function to return the position of the first repeating element.
+    firstRepeated(arr, n) {
+        // your code here
+        // let result = -1
+        // for(let i=0;i<n;i++){
+        //     if(arr.indexOf(arr[i],i+1)>=0){
+        //         result = i+1;
+        //         break;
+        //     }
+        // }
+        // return result;
+        
+        let tallyObj={};
+        let minIndex = Infinity;
+        for(let i=0;i<n;i++){
+            if(tallyObj[arr[i]]>=0 && minIndex>tallyObj[arr[i]]){
+                minIndex=tallyObj[arr[i]];
+            }else if(!tallyObj[arr[i]]){
+                tallyObj[arr[i]]=i;
+            }
+        }
+        return minIndex!=Infinity?minIndex+1:-1;
+    }
+}
+
+
